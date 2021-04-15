@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ffFa6LZFjw/RrDuFuXkiN4A4tNagPEoEgKY8ULFkdxWeo80ExUCEI40natcmCApn2SSwC3mUS0R4/S5+rR5ecw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Tinde\\Desktop\\Lurgypai\\ROR2\\mods\\Projects\\files\\Rocketeer\\Rocketeer\\Rocketeer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tinde\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Tinde\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
