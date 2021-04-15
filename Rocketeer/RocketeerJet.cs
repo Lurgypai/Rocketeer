@@ -18,9 +18,9 @@ namespace EntityStates.RocketeerStates
         private float turnSpeed;
 
         private float maxFlySpeed;
-        private float baseAccel = 0.05f;
+        private float baseAccel = 0.04f;
         private float baseUpwardAccelFalling = 0.1f;
-        private float baseUpwardsAccel = 0.8f;
+        private float baseUpwardsAccel = 0.08f;
         private float forwardAccel;
         private Vector3 forwardDirection;
         private float upwardsAccel;

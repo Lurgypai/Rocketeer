@@ -23,7 +23,7 @@ namespace Rocketeer
         private float recoilBase = 20.0f;
         private float recoilPerFire = 2.0f;
 
-        private float stockCoefficient = 0.50f;
+        private float stockExtraDamage = 1.0f;
 
         private bool hasJumped = false;
 
@@ -70,7 +70,7 @@ namespace Rocketeer
                 bool crit = base.RollCrit();
 
                 GameObject target = this.targetHurtbox != null ? this.targetHurtbox.gameObject : null;
-                float damage = this.damageCoefficient * this.damageStat * (1.0f + (this.stockCoefficient * ((float)(stockCount) / (float)(specialSkill.maxStock))));
+                float damage = (this.damageCoefficient + stockCount * stockExtraDamage)* this.damageStat;
 
                 for (int i = 0; i != stockCount; ++i) {
                     ProjectileManager.instance.FireProjectile(ContentPacks.specialProjectile,

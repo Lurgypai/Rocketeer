@@ -86,7 +86,7 @@ namespace Rocketeer
             bodyComponent.baseArmor = 20f;
             bodyComponent.levelArmor = 0f;
             bodyComponent.baseJumpCount = 1;
-            bodyComponent.sprintingSpeedMultiplier = 1.5f;
+            bodyComponent.sprintingSpeedMultiplier = 1.45f;
             bodyComponent.wasLucky = false;
             bodyComponent.hideCrosshair = false;
             bodyComponent.crosshairPrefab = Resources.Load<GameObject>("Prefabs/Crosshair/StandardCrosshair");
@@ -450,7 +450,7 @@ namespace Rocketeer
                 LanguageAPI.Add("ROCKETEER_ULT_NAME", "Big Booma Cannon");
                 LanguageAPI.Add("ROCKETEER_ULT_DESCRIPTION", "Ready to go, Boss. " +
                     "Each rocket does <style=cIsDamage>1500% damage</style> and takes <style=cIsDamage>12 seconds</style> to recharge. " +
-                    "Additionally, when launched each rocket launched increases the damage of all rockets by <style=cIsDamage>10%</style>. Hold up to <style=cIsDamage>5</style>.");
+                    "When launched each rocket increases the damage of all rockets additively by <style=cIsDamage>100%</style>. Hold up to <style=cIsDamage>5</style>.");
 
                 // set up your primary skill def here!
 
@@ -636,7 +636,7 @@ namespace Rocketeer
 
             LanguageAPI.Add("ROCKETEER_JETPACKITEM_NAME", "Shiny Jetpack");
             LanguageAPI.Add("ROCKETEER_JETPACKITEM_PICKUP", "I'm a little rusty, but this jetpack isn't!");
-            LanguageAPI.Add("ROCKETEER_JETPACKITEM_DESC", "Triples move speed and doubles jump height after other effects are added.");
+            LanguageAPI.Add("ROCKETEER_JETPACKITEM_DESC", "Doubles the effect of movement and jump items.");
             LanguageAPI.Add("ROCKETEER_JETPACK_LORE", "Its been cleaned up, but its still not that great.");
 
             ItemAPI.Add(new CustomItem(shinyJetpackDef, new ItemDisplayRuleDict(null)));
