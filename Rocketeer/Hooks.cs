@@ -25,7 +25,7 @@ namespace Rocketeer
                     int count = self.inventory.GetItemCount(ContentPacks.shinyJetpackDef.itemIndex);
                     if (count != 0)
                     {
-                        float amount = 1.0f;
+                        float amount = 0.5f;
 
                         float moveScale = self.moveSpeed / self.baseMoveSpeed;
                         float jumpScale = self.jumpPower / self.baseJumpPower;

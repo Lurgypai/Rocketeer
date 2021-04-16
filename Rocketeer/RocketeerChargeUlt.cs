@@ -15,7 +15,8 @@ namespace Rocketeer
     class RocketeerChargeUlt : BaseSkillState
     {
         private float duration = 7.0f;
-        private float startDuration = 2.0f;
+        private float baseStartDuration = 2.0f;
+        private float startDuration;
 
         private float projectileVelocity = 70.0f;
         private float damageCoefficient = 15.0f;
@@ -44,6 +45,7 @@ namespace Rocketeer
             if(base.isAuthority)
             {
                 base.characterBody.AddBuff(RoR2Content.Buffs.Slow50);
+                this.startDuration = this.baseStartDuration / this.attackSpeedStat;
             }
         }
 

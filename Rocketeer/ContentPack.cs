@@ -546,7 +546,7 @@ namespace Rocketeer
             specialProjectile.AddComponent<ProjectileImpactExplosion>();
             specialProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnEnemy = true;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnWorld = true;
-            specialProjectile.GetComponent<ProjectileImpactExplosion>().blastRadius = 1;
+            specialProjectile.GetComponent<ProjectileImpactExplosion>().blastRadius = 2;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastDamageCoefficient = 1;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastProcCoefficient = 1;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().impactEffect = Resources.Load<GameObject>("Prefabs/Effects/Impacteffects/ExplosionVFX");
@@ -556,7 +556,7 @@ namespace Rocketeer
             specialProjectile.GetComponent<ProjectileImpactExplosion>().lifetimeAfterImpact = 0;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastAttackerFiltering = AttackerFiltering.Default;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().bonusBlastForce = new Vector3(0.0f, 0.0f, 0.0f);
-            specialProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.None;
+            specialProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.SweetSpot;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().fireChildren = false;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().childrenCount = 0;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().childrenDamageCoefficient = 0;
