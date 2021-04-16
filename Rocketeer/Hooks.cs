@@ -25,14 +25,23 @@ namespace Rocketeer
                     int count = self.inventory.GetItemCount(ContentPacks.shinyJetpackDef.itemIndex);
                     if (count != 0)
                     {
-                        float amount = 0.75f;
+                        float amount = 1.0f;
 
                         float moveScale = self.moveSpeed / self.baseMoveSpeed;
                         float jumpScale = self.jumpPower / self.baseJumpPower;
+                        bool sprinting = self.isSprinting;
                         if(moveScale > 1)
                         {
                             float extra = moveScale - 1;
+                            float sprintExtra = self.sprintingSpeedMultiplier - 1.0f;
+                            if (sprinting)
+                                extra -= sprintExtra;
+
                             float scaleAmount = 1 + (extra * ((count * amount) + 1));
+
+                            if (sprinting)
+                                scaleAmount += sprintExtra;
+
                             self.GetType().GetProperty("moveSpeed").SetValue(self, self.moveSpeed * scaleAmount);
                         }
                         if (jumpScale > 1)

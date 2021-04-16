@@ -636,7 +636,7 @@ namespace Rocketeer
 
             LanguageAPI.Add("ROCKETEER_JETPACKITEM_NAME", "Shiny Jetpack");
             LanguageAPI.Add("ROCKETEER_JETPACKITEM_PICKUP", "I'm a little rusty, but this jetpack isn't!");
-            LanguageAPI.Add("ROCKETEER_JETPACKITEM_DESC", "Increases the effect of movement and jump buffs by 75%.");
+            LanguageAPI.Add("ROCKETEER_JETPACKITEM_DESC", "Increases the effect of movement and jump buffs by 100%.");
             LanguageAPI.Add("ROCKETEER_JETPACK_LORE", "Its been cleaned up, but its still not that great.");
 
             ItemAPI.Add(new CustomItem(shinyJetpackDef, new ItemDisplayRuleDict(null)));

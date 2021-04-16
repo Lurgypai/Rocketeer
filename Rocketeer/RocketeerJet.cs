@@ -10,7 +10,7 @@ namespace EntityStates.RocketeerStates
         public float recoil = 3f;
         public static GameObject tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerToolbotRebar");
 
-        private float duration = 1.6f;
+        private float duration = 1.7f;
         private bool hasFired;
         
         private float baseMaxFlySpeed = 2.0f;
@@ -18,7 +18,7 @@ namespace EntityStates.RocketeerStates
         private float turnSpeed;
 
         private float maxFlySpeed;
-        private float baseAccel = 0.04f;
+        private float baseAccel = 0.05f;
         private float baseUpwardAccelFalling = 0.1f;
         private float baseUpwardsAccel = 0.08f;
         private float forwardAccel;
