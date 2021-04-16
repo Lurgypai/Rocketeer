@@ -14,8 +14,8 @@ namespace Rocketeer
 {
     class RocketeerChargeUlt : BaseSkillState
     {
-        private float baseJumpCoefficient = 0.2f;
-        private float duration = 6.0f;
+        private float duration = 7.0f;
+        private float startDuration = 2.0f;
 
         private float projectileVelocity = 70.0f;
         private float damageCoefficient = 15.0f;
@@ -24,8 +24,6 @@ namespace Rocketeer
         private float recoilPerFire = 2.0f;
 
         private float stockExtraDamage = 1.0f;
-
-        private bool hasJumped = false;
 
         private float minSpread = 0.0f;
         private float maxSpread = 4.0f;
@@ -36,15 +34,25 @@ namespace Rocketeer
         private GameObject trackingIndicator = null;
         private HurtBox targetHurtbox;
 
+        private float aimMaxSize = 7.0f;
+        private float aimMinSize = 4.0f;
+        private float aimFinalSize = 3.0f;
+
         public override void OnEnter()
         {
             base.OnEnter();
+            if(base.isAuthority)
+            {
+                base.characterBody.AddBuff(RoR2Content.Buffs.Slow50);
+            }
         }
 
         public override void OnExit()
         {
             if (base.isAuthority)
             {
+                base.characterBody.RemoveBuff(RoR2Content.Buffs.Slow50);
+
                 GenericSkill specialSkill = this.skillLocator.special;
                 int stockCount = specialSkill.stock;
 
@@ -103,17 +111,18 @@ namespace Rocketeer
             if (base.isAuthority)
             {
                 findTarget();
-                if (base.inputBank.jump.down && !hasJumped)
+                if (this.fixedAge > this.startDuration)
                 {
-                    hasJumped = true;
-                    base.characterBody.characterMotor.Motor.ForceUnground();
-                    Vector3 currVelocity = base.characterMotor.velocity;
-                    currVelocity.y = this.baseJumpCoefficient * base.characterBody.jumpPower * base.moveSpeedStat;
-                    base.characterMotor.velocity = currVelocity;
-                }
-                if ((!base.inputBank.skill1.down && base.inputBank.skill1.wasDown) || base.fixedAge >= this.duration)
+
+                    this.trackingIndicator.transform.localScale = new Vector3(aimFinalSize, aimFinalSize, aimFinalSize);
+                    if ((!base.inputBank.skill1.down && base.inputBank.skill1.wasDown) || base.fixedAge >= this.duration)
+                    {
+                        base.outer.SetNextStateToMain();
+                    }
+                } else
                 {
-                    base.outer.SetNextStateToMain();
+                    float size = aimMaxSize - ((aimMaxSize - aimMinSize) * (this.fixedAge / this.startDuration));
+                    this.trackingIndicator.transform.localScale = new Vector3(size, size, size);
                 }
             }
         }
@@ -149,7 +158,7 @@ namespace Rocketeer
                 if (!this.trackingIndicator)
                 {
                     this.trackingIndicator = UnityEngine.Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
-                    this.trackingIndicator.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+                    this.trackingIndicator.transform.localScale = new Vector3(aimMaxSize, aimMaxSize, aimMaxSize);
                 }
                 this.trackingIndicator.transform.position = this.targetHurtbox.transform.position;
             }

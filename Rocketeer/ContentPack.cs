@@ -224,8 +224,8 @@ namespace Rocketeer
             ContentPacks.entityStates.Add(typeof(RocketeerAimThrowableBase));
             ContentPacks.entityStates.Add(typeof(RocketeerAimDetpack));
             ContentPacks.entityStates.Add(typeof(RocketeerJet));
+            ContentPacks.entityStates.Add(typeof(RocketeerSmallJet));
             ContentPacks.entityStates.Add(typeof(RocketeerChargeUlt));
-            ContentPacks.entityStates.Add(typeof(RocketeerLaunchUlt));
 
             PassiveSetup();
             PrimarySetup();
@@ -376,7 +376,7 @@ namespace Rocketeer
             EntityStateMachine entityStateMachine = characterPrefab.AddComponent<EntityStateMachine>();
             entityStateMachine.customName = "ROCKETEER_Utility";
             entityStateMachine.initialStateType = new SerializableEntityStateType(typeof(BaseState));
-            entityStateMachine.mainStateType = new SerializableEntityStateType(typeof(BaseState));
+            entityStateMachine.mainStateType = new SerializableEntityStateType(typeof(RocketeerSmallJet));
         }
         internal static void UtilitySetup()
         {
@@ -546,7 +546,7 @@ namespace Rocketeer
             specialProjectile.AddComponent<ProjectileImpactExplosion>();
             specialProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnEnemy = true;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnWorld = true;
-            specialProjectile.GetComponent<ProjectileImpactExplosion>().blastRadius = 2;
+            specialProjectile.GetComponent<ProjectileImpactExplosion>().blastRadius = 1;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastDamageCoefficient = 1;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastProcCoefficient = 1;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().impactEffect = Resources.Load<GameObject>("Prefabs/Effects/Impacteffects/ExplosionVFX");
@@ -556,7 +556,7 @@ namespace Rocketeer
             specialProjectile.GetComponent<ProjectileImpactExplosion>().lifetimeAfterImpact = 0;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastAttackerFiltering = AttackerFiltering.Default;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().bonusBlastForce = new Vector3(0.0f, 0.0f, 0.0f);
-            specialProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            specialProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.None;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().fireChildren = false;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().childrenCount = 0;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().childrenDamageCoefficient = 0;
@@ -569,7 +569,7 @@ namespace Rocketeer
             specialProjectile.AddComponent<ProjectileSteerTowardTarget>();
             specialProjectile.GetComponent<ProjectileSteerTowardTarget>().rotationSpeed = 700;
             specialProjectile.GetComponent<ProjectileSteerTowardTarget>().yAxisOnly = false;
-            //specialProjectile.GetComponent<SphereCollider>().radius = 0.5f;
+            specialProjectile.GetComponent<SphereCollider>().radius = 0.5f;
 
             detPack = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/StickyBomb"), "Prefabs/Projectiles/RocketeerDetpack", true, "C:\\Users\\Tinde\\Desktop\\Lurgypai\\ROR2\\mods\\Projects\\files\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\Rocketeer.cs", "RegisterCharacter", 155);
             detPack.GetComponent<ProjectileController>().procCoefficient = 1.0f;
@@ -636,7 +636,7 @@ namespace Rocketeer
 
             LanguageAPI.Add("ROCKETEER_JETPACKITEM_NAME", "Shiny Jetpack");
             LanguageAPI.Add("ROCKETEER_JETPACKITEM_PICKUP", "I'm a little rusty, but this jetpack isn't!");
-            LanguageAPI.Add("ROCKETEER_JETPACKITEM_DESC", "Doubles the effect of movement and jump items.");
+            LanguageAPI.Add("ROCKETEER_JETPACKITEM_DESC", "Increases the effect of movement and jump buffs by 75%.");
             LanguageAPI.Add("ROCKETEER_JETPACK_LORE", "Its been cleaned up, but its still not that great.");
 
             ItemAPI.Add(new CustomItem(shinyJetpackDef, new ItemDisplayRuleDict(null)));
