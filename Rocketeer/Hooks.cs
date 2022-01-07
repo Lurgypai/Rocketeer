@@ -42,7 +42,7 @@ namespace Rocketeer
                             if (sprinting)
                                 scaleAmount += sprintExtra;
 
-                            self.GetType().GetProperty("moveSpeed").SetValue(self, (self.moveSpeed / moveScale )* scaleAmount);
+                            self.GetType().GetProperty("moveSpeed").SetValue(self, (self.moveSpeed / moveScale ) * scaleAmount);
                         }
                         if (jumpScale > 1)
                         {

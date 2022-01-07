@@ -314,7 +314,7 @@ namespace Rocketeer
             SkillLocator component = characterPrefab.GetComponent<SkillLocator>();
 
             LanguageAPI.Add("ROCKETEER_SECONDARY_DETPACK_NAME", "Sticky Grenades");
-            LanguageAPI.Add("ROCKETEER_SECONDARY_DETPACK_DESCRIPTION", "Stick to the wall. <style=cIsDamage>600% Damage.</style>");
+            LanguageAPI.Add("ROCKETEER_SECONDARY_DETPACK_DESCRIPTION", "Stick to the wall. Or a guy. <style=cIsDamage>600% Damage.</style>");
 
             // set up your primary skill def here!
 
@@ -385,7 +385,7 @@ namespace Rocketeer
             SkillLocator component = characterPrefab.GetComponent<SkillLocator>();
 
             LanguageAPI.Add("ROCKETEER_UTILITY_JET_NAME", "Jet");
-            LanguageAPI.Add("ROCKETEER_UTILITY_JET_DESCRIPTION", "They fly now.");
+            LanguageAPI.Add("ROCKETEER_UTILITY_JET_DESCRIPTION", "They fly now. Activate again for a small secondary burst.");
 
             // set up your primary skill def here!
 
@@ -609,8 +609,8 @@ namespace Rocketeer
 
             // write a clean survivor description here!
             string desc = "Rocketeer.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Shoot." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Shoot." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > After jetting, the Rocketeer can activate a final secondary jet to negate fall damage." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Remember that the Rocketeer's Big Booma Cannon does additional damage for each stored rocket." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Bang." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Boom.</color>" + Environment.NewLine + Environment.NewLine;
 
