@@ -15,7 +15,7 @@ namespace Rocketeer
     class RocketeerChargeUlt : BaseSkillState
     {
         private float duration = 7.0f;
-        private float baseStartDuration = 2.0f;
+        private float baseStartDuration = 1.5f;
         private float startDuration;
 
         private float projectileVelocity = 70.0f;
@@ -115,8 +115,10 @@ namespace Rocketeer
                 findTarget();
                 if (this.fixedAge > this.startDuration)
                 {
-
-                    this.trackingIndicator.transform.localScale = new Vector3(aimFinalSize, aimFinalSize, aimFinalSize);
+                    if(this.trackingIndicator)
+                    {
+                        this.trackingIndicator.transform.localScale = new Vector3(aimFinalSize, aimFinalSize, aimFinalSize);
+                    }
                     if ((!base.inputBank.skill1.down && base.inputBank.skill1.wasDown) || base.fixedAge >= this.duration)
                     {
                         base.outer.SetNextStateToMain();
@@ -124,7 +126,10 @@ namespace Rocketeer
                 } else
                 {
                     float size = aimMaxSize - ((aimMaxSize - aimMinSize) * (this.fixedAge / this.startDuration));
-                    this.trackingIndicator.transform.localScale = new Vector3(size, size, size);
+                    if(this.trackingIndicator)
+                    {
+                        this.trackingIndicator.transform.localScale = new Vector3(size, size, size);
+                    }
                 }
             }
         }

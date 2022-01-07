@@ -91,6 +91,8 @@ namespace EntityStates.RocketeerStates
 					this.startTime = base.fixedAge;
 
 					Ray aimRay = base.GetAimRay();
+					//move outside of character so it won't collide
+					aimRay.origin += aimRay.direction.normalized * 0.1f;
 					RaycastHit raycastHit;
 					bool flag2 = Physics.Raycast(aimRay, out raycastHit, maxThrowDistance, LayerIndex.CommonMasks.bullet);
 					Vector3 targetPos = new Vector3(0.0f, 0.0f, 0.0f);

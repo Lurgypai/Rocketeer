@@ -27,6 +27,11 @@ namespace Rocketeer
         {
             if (canJet)
             {
+                if(this.characterBody.characterMotor.isGrounded)
+                {
+                    canJet = false;
+                    return;
+                }
                 if (this.characterBody.inputBank.skill3.down && !this.characterBody.inputBank.skill3.wasDown)
                 {
                     canJet = false;
