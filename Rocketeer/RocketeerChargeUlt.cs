@@ -9,6 +9,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using EntityStates.Huntress;
+using EntityStates.Captain.Weapon;
 
 namespace Rocketeer
 {
@@ -24,10 +25,10 @@ namespace Rocketeer
         private float recoilBase = 20.0f;
         private float recoilPerFire = 2.0f;
 
-        private float stockExtraDamage = 1.0f;
+        private float stockExtraDamage = 1.75f;
 
         private float minSpread = 0.0f;
-        private float maxSpread = 4.0f;
+        private float maxSpread = 6.0f;
         private float spreadPitchScale = 1.0f;
         private float spreadYawScale = 1.0f;
         private float force = 1.0f;
@@ -42,7 +43,8 @@ namespace Rocketeer
         public override void OnEnter()
         {
             base.OnEnter();
-            if(base.isAuthority)
+            Util.PlaySound(CallAirstrikeBase.fireAirstrikeSoundString, base.gameObject);
+            if (base.isAuthority)
             {
                 base.characterBody.AddBuff(RoR2Content.Buffs.Slow50);
                 this.startDuration = this.baseStartDuration / this.attackSpeedStat;
@@ -80,7 +82,7 @@ namespace Rocketeer
                 bool crit = base.RollCrit();
 
                 GameObject target = this.targetHurtbox != null ? this.targetHurtbox.gameObject : null;
-                float damage = (this.damageCoefficient + stockCount * stockExtraDamage)* this.damageStat;
+                float damage = (this.damageCoefficient + stockCount * stockExtraDamage) * this.damageStat;
 
                 for (int i = 0; i != stockCount; ++i) {
                     ProjectileManager.instance.FireProjectile(ContentPacks.specialProjectile,

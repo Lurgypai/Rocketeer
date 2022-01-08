@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using EntityStates.Commando;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,25 @@ namespace Rocketeer
                 {
                     canJet = false;
                     this.characterBody.characterMotor.velocity.y = jetAmount;
+                    if (DodgeState.jetEffect)
+                    {
+
+                        Util.PlaySound(DodgeState.dodgeSoundString, base.gameObject);
+                        ChildLocator component = this.GetModelAnimator().GetComponent<ChildLocator>();
+                        if (component)
+                        {
+                            Transform transform = component.FindChild("LeftJet");
+                            Transform transform2 = component.FindChild("RightJet");
+                            if (transform)
+                            {
+                                UnityEngine.Object.Instantiate<GameObject>(DodgeState.jetEffect, transform);
+                            }
+                            if (transform2)
+                            {
+                                UnityEngine.Object.Instantiate<GameObject>(DodgeState.jetEffect, transform2);
+                            }
+                        }
+                    }
                 }
             }
         }

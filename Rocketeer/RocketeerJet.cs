@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using EntityStates.Commando;
+using RoR2;
 using RoR2.Projectile;
 using System;
 using UnityEngine;
@@ -47,6 +48,24 @@ namespace EntityStates.RocketeerStates
             if (!this.hasFired)
             {
                 this.hasFired = true;
+                if(DodgeState.jetEffect)
+                {
+                    Util.PlaySound(DodgeState.dodgeSoundString, base.gameObject);
+                    ChildLocator component = this.GetModelAnimator().GetComponent<ChildLocator>();
+                    if(component)
+                    {
+                        Transform transform = component.FindChild("LeftJet");
+                        Transform transform2 = component.FindChild("RightJet");
+                        if (transform)
+                        {
+                            UnityEngine.Object.Instantiate<GameObject>(DodgeState.jetEffect, transform);
+                        }
+                        if (transform2)
+                        {
+                            UnityEngine.Object.Instantiate<GameObject>(DodgeState.jetEffect, transform2);
+                        }
+                    }
+                }
 
                 if (base.isAuthority)
                 {
@@ -72,6 +91,21 @@ namespace EntityStates.RocketeerStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            ChildLocator component = this.GetModelAnimator().GetComponent<ChildLocator>();
+            if (component)
+            {
+                Transform transform = component.FindChild("LeftJet");
+                Transform transform2 = component.FindChild("RightJet");
+                if (transform)
+                {
+                    UnityEngine.Object.Instantiate<GameObject>(DodgeState.jetEffect, transform);
+                }
+                if (transform2)
+                {
+                    UnityEngine.Object.Instantiate<GameObject>(DodgeState.jetEffect, transform2);
+                }
+            }
 
             if (base.isAuthority)
             {

@@ -450,7 +450,7 @@ namespace Rocketeer
                 LanguageAPI.Add("ROCKETEER_ULT_NAME", "Big Booma Cannon");
                 LanguageAPI.Add("ROCKETEER_ULT_DESCRIPTION", "Ready to go, Boss. " +
                     "Each rocket does <style=cIsDamage>1500% damage</style> and takes <style=cIsDamage>12 seconds</style> to recharge. " +
-                    "When launched each rocket increases the damage of all rockets additively by <style=cIsDamage>100%</style>. Hold up to <style=cIsDamage>5</style>.");
+                    "When launched each rocket increases the damage of all rockets additively by <style=cIsDamage>175%</style>. Hold up to <style=cIsDamage>5</style>.");
 
                 // set up your primary skill def here!
 
@@ -504,7 +504,7 @@ namespace Rocketeer
 
             // just setting the numbers to 1 as the entitystate will take care of those
             arrowProjectile.GetComponent<ProjectileController>().procCoefficient = 1.0f;
-            arrowProjectile.GetComponent<ProjectileController>().ghostPrefab = Resources.Load<GameObject>("Prefabs/RocketGhost");
+            arrowProjectile.GetComponent<ProjectileController>().ghostPrefab = Resources.Load<GameObject>("Prefabs/ProjectileGhosts/MissileGhost");
             arrowProjectile.GetComponent<ProjectileDamage>().damage = 0f;
             arrowProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
 
@@ -533,17 +533,16 @@ namespace Rocketeer
 
             arrowProjectile.GetComponent<SphereCollider>().radius = 0.5f;
 
-            specialProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/SyringeProjectile"), "Prefabs/Projectiles/RocketeerRocketProjectile", true, "C:\\Users\\Tinde\\Desktop\\Lurgypai\\ROR2\\mods\\Projects\\files\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\Rocketeer.cs", "RegisterCharacter", 155);
+            specialProjectile = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/FireworkProjectile"), "Prefabs/Projectiles/RocketeerRocketProjectile", true, "C:\\Users\\Tinde\\Desktop\\Lurgypai\\ROR2\\mods\\Projects\\files\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\Rocketeer.cs", "RegisterCharacter", 155);
 
             specialProjectile.GetComponent<ProjectileController>().procCoefficient = 1.0f;
-            specialProjectile.GetComponent<ProjectileController>().ghostPrefab = Resources.Load<GameObject>("Prefabs/RocketGhost");
+            specialProjectile.GetComponent<ProjectileController>().ghostPrefab = Resources.Load<GameObject>("Prefabs/ProjectileGhosts/MicromissileGhost");
+
             specialProjectile.GetComponent<ProjectileDamage>().damage = 0f;
             specialProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
-            specialProjectile.GetComponent<ProjectileSimple>().updateAfterFiring = true;
 
-            UnityEngine.Object.Destroy(specialProjectile.GetComponent<ProjectileSingleTargetImpact>());
+            UnityEngine.Object.Destroy(specialProjectile.GetComponent<MissileController>());
 
-            specialProjectile.AddComponent<ProjectileImpactExplosion>();
             specialProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnEnemy = true;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().destroyOnWorld = true;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastRadius = 2;
@@ -556,7 +555,7 @@ namespace Rocketeer
             specialProjectile.GetComponent<ProjectileImpactExplosion>().lifetimeAfterImpact = 0;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().blastAttackerFiltering = AttackerFiltering.Default;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().bonusBlastForce = new Vector3(0.0f, 0.0f, 0.0f);
-            specialProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.SweetSpot;
+            specialProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.None;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().fireChildren = false;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().childrenCount = 0;
             specialProjectile.GetComponent<ProjectileImpactExplosion>().childrenDamageCoefficient = 0;
@@ -564,15 +563,21 @@ namespace Rocketeer
             specialProjectile.GetComponent<ProjectileImpactExplosion>().maxAngleOffset = new Vector3(0f, 0f, 0f);
             specialProjectile.GetComponent<ProjectileImpactExplosion>().transformSpace = ProjectileImpactExplosion.TransformSpace.World;
 
-            specialProjectile.AddComponent<ProjectileTargetComponent>();
-
             specialProjectile.AddComponent<ProjectileSteerTowardTarget>();
-            specialProjectile.GetComponent<ProjectileSteerTowardTarget>().rotationSpeed = 700;
+            specialProjectile.GetComponent<ProjectileSteerTowardTarget>().rotationSpeed = 75;
             specialProjectile.GetComponent<ProjectileSteerTowardTarget>().yAxisOnly = false;
+
+            specialProjectile.AddComponent<ProjectileSimple>();
+            specialProjectile.GetComponent<ProjectileSimple>().updateAfterFiring = true;
+
+            UnityEngine.Object.Destroy(specialProjectile.GetComponent<BoxCollider>());
+
+            specialProjectile.AddComponent<SphereCollider>();
             specialProjectile.GetComponent<SphereCollider>().radius = 0.5f;
 
             detPack = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Projectiles/StickyBomb"), "Prefabs/Projectiles/RocketeerDetpack", true, "C:\\Users\\Tinde\\Desktop\\Lurgypai\\ROR2\\mods\\Projects\\files\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\ExampleSurvivor\\Rocketeer.cs", "RegisterCharacter", 155);
             detPack.GetComponent<ProjectileController>().procCoefficient = 1.0f;
+            detPack.GetComponent<ProjectileController>().ghostPrefab = Resources.Load<GameObject>("Prefabs/ProjectileGhosts/CommandoStickyGrenadeGhost");
             detPack.GetComponent<SphereCollider>().radius = 0.5f;
 
             // register it for networking
@@ -611,8 +616,7 @@ namespace Rocketeer
             string desc = "Rocketeer.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > After jetting, the Rocketeer can activate a final secondary jet to negate fall damage." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Remember that the Rocketeer's Big Booma Cannon does additional damage for each stored rocket." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Bang." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Boom.</color>" + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > The Rocketeer spawns with a Shiny Jetpack." + Environment.NewLine + Environment.NewLine;
 
             // add the language tokens
             LanguageAPI.Add("ROCKETEER_NAME", "Rocketeer");

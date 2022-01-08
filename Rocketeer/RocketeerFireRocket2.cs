@@ -1,4 +1,5 @@
-﻿using Rocketeer;
+﻿using EntityStates.Commando.CommandoWeapon;
+using Rocketeer;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
@@ -33,6 +34,8 @@ namespace EntityStates.RocketeerStates
         {
             if (!this.hasFired)
             {
+
+                Util.PlaySound(FirePistol2.firePistolSoundString, base.gameObject);
                 this.hasFired = true;
                 Ray aimRay = base.GetAimRay();
 

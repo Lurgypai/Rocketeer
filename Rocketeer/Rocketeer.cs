@@ -18,7 +18,7 @@ namespace Rocketeer
 
     [BepInDependency("com.bepis.r2api")]
 
-    [BepInPlugin(MODUID, "Rocketeer", "0.0.2")] // put your own name and version here
+    [BepInPlugin(MODUID, "Rocketeer", "0.0.3")] // put your own name and version here
     [R2APISubmoduleDependency(nameof(PrefabAPI), nameof(LanguageAPI), nameof(LoadoutAPI), nameof(ItemAPI))] // need these dependencies for the mod to work properly
 
 
